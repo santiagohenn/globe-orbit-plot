@@ -67,3 +67,6 @@ for n = 1 : nSatsInPlane : nSats
 end
 
 geobasemap(g,'darkwater')
+
+%% Export current view as file
+exportapp(uif,'snaps/snap.pdf');
