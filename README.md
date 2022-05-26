@@ -1,14 +1,14 @@
 # globe-orbit-plot
 
-Scripts to plot constellations, both in 2D as ground tracks or in 
-3D with user interface. 
+MATLAB Scripts to plot LEO constellations, both in 2D (as ground tracks or SSPs) and in 
+3D as an interactive map that shows the orbits. 
 
 ### Usage:
 
 Set the constellation satellites via a .csv file, one for each line, grouped
 by planes: if you have N planes with M satellites, the M 
 satellites from the first plane should come first, then the M satellites 
-for the second plane, and so on until the N^th^ plane.
+for the second plane, and so on until the Nth plane.
 
 CSV's columns are as follows:
 
@@ -28,8 +28,7 @@ _constellation.csv_
 [...]
 ```
 
-Then modify the following lines in the _orbit_plotter.m_ script, and run the block 
-the .csv file:
+Modify the following lines in the _orbit_plotter.m_ script, and then run the block:
 
 ```Matlab
 % Read CSV file containing the constellation parameters
@@ -44,17 +43,17 @@ Finally, run the script, or the block of code that suits your needs:
 
 * **Plot ground tracks in 2D**: Plots ground tracks
 * **Plot in 3D globe**: Plots into a user-interactive 3D plot. [Other types of basemaps](https://la.mathworks.com/help/map/ref/geoglobe.html)
-  are supported besides the provided default: _darkwater_[^1].
+  are supported[^1] besides the provided default: _darkwater_.
 * **Export globe-3D current view as file**: Exports the current view of the UI 3D plot 
 to a path/file.pdf indicated in the argument of this function[^2]:
 
 ```Matlab
-%% Export globe-3D current view as file
+% Export globe-3D current view as file
 exportapp(uif,'PATH/TO/OUTPUT/PDF');
 ```
 
 [^1]: Many of them require internet connection.
-[^2]: Only pdf type of output is supported.
+[^2]: Only pdf output is supported.
 
 ---
 
@@ -69,17 +68,15 @@ exportapp(uif,'PATH/TO/OUTPUT/PDF');
 
 ## Requirements and restrictions
 
-**Matlab 2022a** or later is required to obtain the 3D plots.
+**Matlab 2020a** or later is required to obtain the 3D plots.
 
-The functions used do not appear to be intended to plot orbits, rather to be used to plot 
-lines, great circles, and overall regions over the surface of the Earth. To achieve the 
-obtained results, great circles are interpolated in between sub-satellite points, which 
-are then elevated to the plane's approximate height (based on the orbit's Semi-Major axis)
-and Earth's equatorial radius. Small constellations or trailing satellite formations
-could yield strange results in the visualizations.
+The functions used do not appear to be intended to plot orbits, rather to be used in plotting 
+lines, great circles, and regions over the surface of the Earth. To achieve the 
+shown results, great circles are interpolated between sub-satellite points, which 
+are then elevated to the plane's approximate height over the surface of the Earth, based on the orbit's Semi-Major axis and Earth's equatorial radius. Small constellations or trailing satellite formations could yield strange results in the visualizations.
 
-No orbit propagation is performed in this tool, this is yet to be implemented, which will
-allow for more freedom, mainly in non-symmetric constellations.
+No orbit propagation is performed in this tool, this is yet to be implemented and will
+allow for more freedom in what can be plotted, mainly in the field of non-symmetric constellations.
 
 ---
 

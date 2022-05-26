@@ -1,10 +1,10 @@
-%% Modify here VVVVVVVV
+%% Modify and run this block first!
 
 % Read CSV file containing the constellation parameters
 con = csvread('constellation.csv');
 
 % Set the number of planes and sats per plane
-nPlanes = 1;        % < ----- N. of planes
+nPlanes = 8;        % < ----- N. of planes
 nSatsInPlane = 8;   % < ----- N. of sats
 
 % Modify here ^^^^^^^^^
@@ -26,10 +26,12 @@ for n = 1 : nSatsInPlane : nSats
     longsToPlot = lla(n:n+(nSatsInPlane-1),2);
     longsToPlot(nPlanes + 1) = longsToPlot(1);
     [latI,lonI] = interpm(latsToPlot,longsToPlot,0.1,'gc');
-    geoplot(latI,lonI,'-','MarkerSize',12,'LineWidth',1,'Color',[1 0 1]); hold on;
-    geoplot(lla(:,1),lla(:,2),'p','MarkerSize',5,'Color',[1 0 0]); hold on;
+    geoplot(latI,lonI,'-','MarkerSize',12,'LineWidth',1,'Color',rand(1,3)); hold on;
+%     geoplot(lla(:,1),lla(:,2),'p','MarkerSize',5,'Color',[1 0 0]); hold on;
     
 end
+
+title('Constellation ground tracks');
 
 %% Plot in 3D globe
 
@@ -41,6 +43,7 @@ satHeight = lla(n,3)*1e3;
 
 for n = 1 : nSatsInPlane : nSats
     
+    color = rand(1,3);
     % Plot great circle
     latsToPlot = lla(n:n+(nSatsInPlane - 1),1);
     latsToPlot(nSatsInPlane + 1) = latsToPlot(1);
@@ -48,12 +51,12 @@ for n = 1 : nSatsInPlane : nSats
     longsToPlot(nSatsInPlane + 1) = longsToPlot(1);
     [latI,lonI] = interpm(latsToPlot,longsToPlot,0.1,'gc');
     alts = satHeight*ones(size(latI,1),1);
-    p = geoplot3(g,latI,lonI,alts,'r','LineWidth',0.8);
+    p = geoplot3(g,latI,lonI,alts,'LineWidth',0.8);
     p.HeightReference = 'ellipsoid';
     hold(g,'on');
     % Plot satellite positions
     alts = satHeight*ones(size(longs,1) + 1,1);
-    p = geoplot3(g,latsToPlot,longsToPlot,alts,'ro','LineWidth',3,'MarkerSize',1);
+    p = geoplot3(g,latsToPlot,longsToPlot,alts,'o','Color',color,'LineWidth',3,'MarkerSize',1);
     hold(g,'on');
     
 end
