@@ -39,7 +39,7 @@ lla = elements2lla(con);
 
 uif = uifigure;
 g = geoglobe(uif,'Basemap','darkwater');
-satHeight = lla(n,3)*1e3;
+satHeight = lla(nSats,3)*1e3;
 
 for n = 1 : nSatsInPlane : nSats
     
@@ -55,7 +55,7 @@ for n = 1 : nSatsInPlane : nSats
     p.HeightReference = 'ellipsoid';
     hold(g,'on');
     % Plot satellite positions
-    alts = satHeight*ones(size(longs,1) + 1,1);
+    alts = satHeight*ones(size(latsToPlot,1),1);
     p = geoplot3(g,latsToPlot,longsToPlot,alts,'o','Color',color,'LineWidth',3,'MarkerSize',1);
     hold(g,'on');
     
